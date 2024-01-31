@@ -1,0 +1,8 @@
+quote\entity\Quote.class
+quote\service\GetQuote.class
+quote\entity\Results.class
+quote\entity\Binding.class
+quote\entity\Name.class
+quote\entity\Result.class
+quote\entity\QuoteResponse.class
+quote\bean\QuoteBean.class
