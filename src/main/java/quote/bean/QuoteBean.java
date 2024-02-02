@@ -6,6 +6,7 @@ package quote.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import quote.entity.Binding;
+import static quote.entity.FamousPeople.getFamousPeople;
 import quote.service.GetQuote;
 
 /**
@@ -37,7 +39,14 @@ public class QuoteBean implements Serializable {
         INTERESSES.clear();
         Map<String, String> resultRequest = new HashMap();
         GetQuote getQuote = new GetQuote();
+        /*
         resultRequest = getQuote.getQuoteDay();
+        for (Map.Entry<String, String> entry : resultRequest.entrySet()) {
+            author = entry.getKey();
+            quote = entry.getValue();
+        }*/
+
+        resultRequest = getQuote.getQuotePensador();
         for (Map.Entry<String, String> entry : resultRequest.entrySet()) {
             author = entry.getKey();
             quote = entry.getValue();
@@ -46,6 +55,18 @@ public class QuoteBean implements Serializable {
     }
 
     public void adc() {
+        List<String> famousList = getFamousPeople();
+        Collections.shuffle(famousList); // sorteia os nomes
+        
+        // trocar por um do while
+        for (int i = 0; i < 3; i++) {
+            INTERESSES.add(famousList.get(i));
+        }
+        INTERESSES.add(author); 
+        Collections.shuffle(INTERESSES);
+    }   
+
+    public void ds() {
         GetQuote getQuote = new GetQuote();
         List<Binding> list = getQuote.getFamous(author);
 

@@ -6,22 +6,35 @@ package quote.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 
 /**
  *
  * @author maria
  */
-  @JsonIgnoreProperties(ignoreUnknown = true)
-    public class Result {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Result {
 
-        @JsonProperty("results")
-        private Results results;
+    @JsonProperty("results")
+    private Results results;
 
-        public Results getResults() {
-            return results;
-        }
+    @JsonProperty("frases")
+    private List<Frases> frases;
 
-        public void setResults(Results results) {
-            this.results = results;
-        }
+    public Results getResults() {
+        return results;
     }
+
+    public void setResults(Results results) {
+        this.results = results;
+    }
+
+    public List<Frases> getFrases() {
+        return frases;
+    }
+
+    public void setFrases(List<Frases> frases) {
+        this.frases = frases;
+    }
+
+}
