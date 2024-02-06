@@ -37,4 +37,9 @@ public class Result {
         this.frases = frases;
     }
 
+    @Override
+    public String toString() {
+        return new com.google.gson.Gson().toJson(this);
+    }
+
 }

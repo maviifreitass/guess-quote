@@ -1,8 +1,13 @@
+quote\entity\FamousPeople.class
+quote\entity\SlipWrapper.class
 quote\entity\Results.class
 quote\entity\Result.class
 quote\bean\QuoteBean.class
 quote\entity\Quote.class
+quote\bean\AdviceBean.class
 quote\service\GetQuote.class
+quote\entity\Slip.class
 quote\entity\Binding.class
 quote\entity\Name.class
+quote\entity\Frases.class
 quote\entity\QuoteResponse.class

@@ -47,6 +47,7 @@ public class QuoteBean implements Serializable {
         }*/
 
         resultRequest = getQuote.getQuotePensador();
+        System.out.println("INICIO QUOTE BEAN");
         for (Map.Entry<String, String> entry : resultRequest.entrySet()) {
             author = entry.getKey();
             quote = entry.getValue();
@@ -57,14 +58,19 @@ public class QuoteBean implements Serializable {
     public void adc() {
         List<String> famousList = getFamousPeople();
         Collections.shuffle(famousList); // sorteia os nomes
-        
         // trocar por um do while
         for (int i = 0; i < 3; i++) {
-            INTERESSES.add(famousList.get(i));
+            if (famousList.get(i).equals(author)) {
+                INTERESSES.add(famousList.get(i+1));
+            } else {
+                INTERESSES.add(famousList.get(i));
+            }
+            System.out.println("LISTA:"+INTERESSES.get(i));
         }
-        INTERESSES.add(author); 
+        INTERESSES.add(author);
         Collections.shuffle(INTERESSES);
-    }   
+        System.out.println(INTERESSES.size());
+    }
 
     public void ds() {
         GetQuote getQuote = new GetQuote();

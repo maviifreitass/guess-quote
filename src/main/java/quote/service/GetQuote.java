@@ -152,11 +152,15 @@ public class GetQuote {
 
     public Map<String, String> getQuotePensador() {
         try {
-            FamousPeople fp = new FamousPeople();
+            Result rs = new Result();
+            Random random = new Random();
+            Integer number = random.nextInt(10);
+            String name = null;
+            
+            do {
             List<String> famousList = getFamousPeople();
             Collections.shuffle(famousList); // sorteia os nomes
-            String name = famousList.get(0).replace(" ", "+");
-
+            name = famousList.get(0).replace(" ", "+");
             RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(60000).build();
             HttpGet httpget = new HttpGet("https://pensador-api.vercel.app/?term=" + name + "&max=10");
             requestConfig = RequestConfig.custom().setConnectTimeout(60000).build();
@@ -167,14 +171,15 @@ public class GetQuote {
             String result = EntityUtils.toString(response.getEntity());
 
             // Convertendo o JSON para um objeto JsonObject
-            Result rs = new Gson().fromJson(result, Result.class);
+            rs = new Gson().fromJson(result, Result.class);
+            
             System.out.println(rs);
-
-            Random random = new Random();
-            int numeroAleatorio = (int) Math.floor(Math.random() * 11);
-
+            } while (number >= rs.getFrases().size() || rs.getFrases().isEmpty());
+            System.out.println(number);
+            System.out.println(rs.getFrases().size());
+            
             Map<String, String> resultRequest = new HashMap();
-            resultRequest.put(name.replace("+", " "), rs.getFrases().get(random.nextInt(10)).getTexto());
+            resultRequest.put(name.replace("+", " "), rs.getFrases().get(number).getTexto());
             return resultRequest;
         } catch (IOException e) {
             return null;

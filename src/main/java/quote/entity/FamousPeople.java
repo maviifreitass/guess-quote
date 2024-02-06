@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class FamousPeople {
 
-    public static final List<String> famousPeople = new ArrayList<>();
+    public static List<String> famousPeople = new ArrayList<>();
 
     public static void add() {
         famousPeople.add("Albert Einstein");
@@ -101,6 +101,7 @@ public class FamousPeople {
     }
 
     public static List<String> getFamousPeople() {
+        famousPeople = new ArrayList<>();
         add();
         return famousPeople;
     }
