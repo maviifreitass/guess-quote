@@ -173,7 +173,6 @@ public class GetQuote {
             // Convertendo o JSON para um objeto JsonObject
             rs = new Gson().fromJson(result, Result.class);
             
-            System.out.println(rs);
             } while (number >= rs.getFrases().size() || rs.getFrases().isEmpty());
             System.out.println(number);
             System.out.println(rs.getFrases().size());
