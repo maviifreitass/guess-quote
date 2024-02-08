@@ -6,6 +6,7 @@ package quote.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import quote.entity.Binding;
+import static quote.entity.FamousPeople.getFamousPeople;
 import quote.service.GetQuote;
 
 /**
@@ -31,13 +33,21 @@ public class QuoteBean implements Serializable {
     private String info;
     private String advice;
     private Boolean getInfo = Boolean.FALSE;
+    private int contador = 0;
 
     @PostConstruct
     public void init() {
         INTERESSES.clear();
         Map<String, String> resultRequest = new HashMap();
         GetQuote getQuote = new GetQuote();
+        /*
         resultRequest = getQuote.getQuoteDay();
+        for (Map.Entry<String, String> entry : resultRequest.entrySet()) {
+            author = entry.getKey();
+            quote = entry.getValue();
+        }*/
+
+        resultRequest = getQuote.getQuotePensador();
         for (Map.Entry<String, String> entry : resultRequest.entrySet()) {
             author = entry.getKey();
             quote = entry.getValue();
@@ -46,6 +56,26 @@ public class QuoteBean implements Serializable {
     }
 
     public void adc() {
+        List<String> famousList = getFamousPeople();
+        Collections.shuffle(famousList); // sorteia os nomes
+
+        for (int i = 0; i < 3; i++) {
+            if (famousList.get(i).equals(author)) {
+                INTERESSES.add(famousList.get(i + 1));
+            } else if (INTERESSES.contains(famousList.get(i))) {
+                INTERESSES.add(famousList.get(i + 1));
+            } else {
+                INTERESSES.add(famousList.get(i));
+            }
+
+            System.out.println("LISTA:" + INTERESSES.get(i));
+        }
+        INTERESSES.add(author);
+        Collections.shuffle(INTERESSES);
+        System.out.println(INTERESSES.size());
+    }
+
+    public void ds() {
         GetQuote getQuote = new GetQuote();
         List<Binding> list = getQuote.getFamous(author);
 

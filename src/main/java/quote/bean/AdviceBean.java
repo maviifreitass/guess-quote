@@ -14,6 +14,7 @@ import quote.service.GetQuote;
  *
  * @author maria
  */
+// em desuso
 @ManagedBean
 @ViewScoped // Garante que o Bean será mantido durante a sessão do usuário
 public class AdviceBean implements Serializable {
