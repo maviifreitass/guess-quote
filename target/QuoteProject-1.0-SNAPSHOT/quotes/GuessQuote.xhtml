@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="corpo">
+
+        <h:head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <h:outputStylesheet library="css" name="sistema.css" />
+            <script>
+                $(document).ready(function () {
+                    addFamous();
+                    getInfo();
+                });
+            </script>
+        </h:head>
+
+        <div style="display: grid; place-items: center; text-wrap: balance; text-align: center; margin: 20px 50px 0 50px;">
+            <span style="font-size: 30px;">
+                "#{quoteBean.quote}"
+            </span>
+            <p></p>
+
+            <h:form>
+                <!--h:outputText value="Contagem: #{countBean.contador}" /-->
+            </h:form>
+            <h:form id="frm">
+
+                <p:remoteCommand name="addFamous" action="#{quoteBean.adc}" update="@form" process="@this"
+                                 onstart="mostrarLoading()" oncomplete="esconderLoading()" />
+
+                <p:remoteCommand name="getInfo" action="#{quoteBean.infoFamous}" update="@form" process="@this"/>
+
+                <script>
+                    function mostrarLoading() {
+                        // Exibe o indicador de carregamento
+                        document.getElementById('loadingIndicator').style.display = 'block';
+                    }
+
+                    function esconderLoading() {
+                        // Esconde o indicador de carregamento após a conclusão
+                        document.getElementById('loadingIndicator').style.display = 'none';
+                    }
+                </script>                
+                <p:messages />
+
+                <div id="loadingIndicator" style="display:none;">
+                    <i class="fas fa-spinner fa-spin"></i> Carregando...
+                </div>
+                <p:panelGrid columns="2" style="width:100%">
+                    <p:selectOneListbox id="interesse" value="#{quoteBean.interesse}" required="true" style="width: 400px; font-weight: 600; font-size: 20px">
+                        <f:selectItems value="#{quoteBean.interesses}" 
+                                       var="interesse"
+                                       itemLabel="#{interesse}" itemValue="#{interesse}"/>
+                    </p:selectOneListbox>
+                    <p:column>
+                        <p:outputPanel rendered="#{quoteBean.getInfo}"> <!-- Isso utiliza a propriedade rendered para controlar a visibilidade do componente. -->
+                            <p:commandButton type="button"  id="botaoComTooltip" onclick="dlg1.show();" icon="ui-icon-info"/>
+                            <p:tooltip for="botaoComTooltip" value="Clique para saber mais informações sobre o autor" /> <!--informação ao passar o mouse -->
+                        </p:outputPanel>
+                    </p:column>
+                </p:panelGrid> 
+
+                <p:commandButton value="Responder" action="#{quoteBean.checkAnswer}" update="@form"/>
+                <p:button value="Próxima Citação" outcome="GuessQuote" />  <!-- tipo de botão usado para navegação -->            
+                <!-- popup com informações do autor, só será exibido ao acertar o autor -->
+                <p:dialog header="#{quoteBean.author}" widgetVar="dlg1" modal="true" style="
+                          width: auto;
+                          height: auto;
+                          z-index: 1006;
+                          position: fixed;
+                          top: 50%;
+                          left: 50%;
+                          transform: translate(-50%, -50%);
+                          " >
+                    <h:outputText value="#{quoteBean.info}" escape="false"/>
+                </p:dialog>   
+                <p> </p>
+            </h:form>
+        </div>
+
+        <div style="clear: both"></div>
+
+    </ui:define>
+</ui:composition>

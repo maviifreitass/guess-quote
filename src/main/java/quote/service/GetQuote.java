@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.client.HttpClient;
@@ -19,6 +20,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.util.EntityUtils;
 import quote.entity.Binding;
+import quote.entity.FamousPeople;
+import static quote.entity.FamousPeople.getFamousPeople;
 import quote.entity.Name;
 import quote.entity.QuoteResponse;
 import quote.entity.Result;
@@ -139,9 +142,44 @@ public class GetQuote {
             String result = EntityUtils.toString(response.getEntity());
 
             // Convertendo o JSON para um objeto JsonObject
-            SlipWrapper  slip = new Gson().fromJson(result, SlipWrapper .class);
+            SlipWrapper slip = new Gson().fromJson(result, SlipWrapper.class);
 
             return slip.getSlip().getAdvice();
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    public Map<String, String> getQuotePensador() {
+        try {
+            Result rs = new Result();
+            Random random = new Random();
+            Integer number = random.nextInt(10);
+            String name = null;
+            
+            do {
+            List<String> famousList = getFamousPeople();
+            Collections.shuffle(famousList); // sorteia os nomes
+            name = famousList.get(0).replace(" ", "+");
+            RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(60000).build();
+            HttpGet httpget = new HttpGet("https://pensador-api.vercel.app/?term=" + name + "&max=10");
+            requestConfig = RequestConfig.custom().setConnectTimeout(60000).build();
+            httpget.setConfig(requestConfig);
+            httpget.setHeader("Content-Type", "application/json");
+            HttpClient client = HttpClientBuilder.create().build();
+            HttpResponse response = client.execute(httpget);
+            String result = EntityUtils.toString(response.getEntity());
+
+            // Convertendo o JSON para um objeto JsonObject
+            rs = new Gson().fromJson(result, Result.class);
+            
+            } while (number >= rs.getFrases().size() || rs.getFrases().isEmpty());
+            System.out.println(number);
+            System.out.println(rs.getFrases().size());
+            
+            Map<String, String> resultRequest = new HashMap();
+            resultRequest.put(name.replace("+", " "), rs.getFrases().get(number).getTexto());
+            return resultRequest;
         } catch (IOException e) {
             return null;
         }
