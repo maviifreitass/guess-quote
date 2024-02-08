@@ -10,4 +10,5 @@ quote\entity\Slip.class
 quote\entity\Binding.class
 quote\entity\Name.class
 quote\entity\Frases.class
+quote\bean\CountBean.class
 quote\entity\QuoteResponse.class

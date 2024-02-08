@@ -33,6 +33,7 @@ public class QuoteBean implements Serializable {
     private String info;
     private String advice;
     private Boolean getInfo = Boolean.FALSE;
+    private int contador = 0;
 
     @PostConstruct
     public void init() {

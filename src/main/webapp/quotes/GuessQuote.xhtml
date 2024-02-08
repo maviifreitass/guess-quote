@@ -13,8 +13,8 @@
             <h:outputStylesheet library="css" name="sistema.css" />
             <script>
                 $(document).ready(function () {
-                    carregarElemento2();
-                    carregarElemento3();
+                    addFamous();
+                    getInfo();
                 });
             </script>
         </h:head>
@@ -26,16 +26,15 @@
             <p></p>
 
             <h:form>
-                <h:outputText value="Contagem: #{countBean.contador}" />
+                <!--h:outputText value="Contagem: #{countBean.contador}" /-->
             </h:form>
             <h:form id="frm">
 
-                <p:remoteCommand name="carregarElemento2" action="#{quoteBean.adc}" update="@form" process="@this"
+                <p:remoteCommand name="addFamous" action="#{quoteBean.adc}" update="@form" process="@this"
                                  onstart="mostrarLoading()" oncomplete="esconderLoading()" />
 
-                <p:remoteCommand name="carregarElemento3" action="#{quoteBean.infoFamous}" update="@form" process="@this"/>
+                <p:remoteCommand name="getInfo" action="#{quoteBean.infoFamous}" update="@form" process="@this"/>
 
-                <!-- Adicione a função JavaScript para mostrar o indicador de carregamento -->
                 <script>
                     function mostrarLoading() {
                         // Exibe o indicador de carregamento
