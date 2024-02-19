@@ -101,7 +101,6 @@ public class FamousPeople {
     }
 
     public static List<String> getFamousPeople() {
-        famousPeople = new ArrayList<>();
         add();
         return famousPeople;
     }

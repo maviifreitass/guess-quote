@@ -174,8 +174,6 @@ public class GetQuote {
             rs = new Gson().fromJson(result, Result.class);
             
             } while (number >= rs.getFrases().size() || rs.getFrases().isEmpty());
-            System.out.println(number);
-            System.out.println(rs.getFrases().size());
             
             Map<String, String> resultRequest = new HashMap();
             resultRequest.put(name.replace("+", " "), rs.getFrases().get(number).getTexto());

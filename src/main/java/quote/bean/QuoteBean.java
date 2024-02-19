@@ -13,7 +13,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
 import quote.entity.Binding;
 import static quote.entity.FamousPeople.getFamousPeople;
@@ -46,13 +46,12 @@ public class QuoteBean implements Serializable {
             author = entry.getKey();
             quote = entry.getValue();
         }*/
-
+        System.out.println("[QuoteBean] post construct init");
         resultRequest = getQuote.getQuotePensador();
         for (Map.Entry<String, String> entry : resultRequest.entrySet()) {
             author = entry.getKey();
             quote = entry.getValue();
         }
-        System.out.println("Author: " + author);
     }
 
     public void adc() {
@@ -68,11 +67,9 @@ public class QuoteBean implements Serializable {
                 INTERESSES.add(famousList.get(i));
             }
 
-            System.out.println("LISTA:" + INTERESSES.get(i));
         }
         INTERESSES.add(author);
         Collections.shuffle(INTERESSES);
-        System.out.println(INTERESSES.size());
     }
 
     public void ds() {

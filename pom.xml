@@ -37,6 +37,12 @@
             <scope>compile</scope>
         </dependency>
         
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.4</version> <!-- Ou a versão mais recente -->
+        </dependency>
+        
         <!-- Mojarra (implementacao do JSF) -->
         <dependency>
             <groupId>org.glassfish</groupId>
