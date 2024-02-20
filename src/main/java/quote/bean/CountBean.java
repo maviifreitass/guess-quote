@@ -16,9 +16,19 @@ import javax.faces.bean.SessionScoped;
 public class CountBean {
 
     private int contador = 0;
+    private int incorrect = 0;
+    private int correct = 0;
 
     public int getContador() {
         return contador++;
+    }
+
+    public int getIncorrect() {
+        return incorrect++;
+    }
+
+    public int getCorrect() {
+        return correct++;
     }
 
 }
