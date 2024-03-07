@@ -27,7 +27,7 @@ import quote.service.GetQuote;
 @ViewScoped // Garante que o Bean será mantido durante a sessão do usuário
 public class QuoteBean implements Serializable {
 
-    public static final List<String> INTERESSES = new ArrayList<>();
+    public static final List<String> OPTIONS = new ArrayList<>();
     private String quote;
     private String author;
     private String info;
@@ -37,7 +37,7 @@ public class QuoteBean implements Serializable {
 
     @PostConstruct
     public void init() {
-            INTERESSES.clear();
+            OPTIONS.clear();
             Map<String, String> resultRequest = new HashMap();
             GetQuote getQuote = new GetQuote();
             /*
@@ -60,16 +60,16 @@ public class QuoteBean implements Serializable {
 
         for (int i = 0; i < 3; i++) {
             if (famousList.get(i).equals(author)) {
-                INTERESSES.add(famousList.get(i + 1));
-            } else if (INTERESSES.contains(famousList.get(i))) {
-                INTERESSES.add(famousList.get(i + 1));
+                OPTIONS.add(famousList.get(i + 1));
+            } else if (OPTIONS.contains(famousList.get(i))) {
+                OPTIONS.add(famousList.get(i + 1));
             } else {
-                INTERESSES.add(famousList.get(i));
+                OPTIONS.add(famousList.get(i));
             }
 
         }
-        INTERESSES.add(author);
-        Collections.shuffle(INTERESSES);
+        OPTIONS.add(author);
+        Collections.shuffle(OPTIONS);
     }
 
     public void ds() {
@@ -77,16 +77,16 @@ public class QuoteBean implements Serializable {
         List<Binding> list = getQuote.getFamous(author);
 
         for (Binding b : list) {
-            INTERESSES.add(b.getName().getValue());
+            OPTIONS.add(b.getName().getValue());
         }
     }
 
     private String nome;
     private String profissao;
-    private String interesse;
+    private String option;
 
     public void checkAnswer() {
-        if (interesse.equals(author)) {
+        if (option.equals(author)) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Parabéns! Você acertou!", ""));
             getInfo = Boolean.TRUE;
             return;
@@ -145,8 +145,8 @@ public class QuoteBean implements Serializable {
         this.quote = quote;
     }
 
-    public List<String> getInteresses() {
-        return INTERESSES;
+    public List<String> getOptions() {
+        return OPTIONS;
     }
 
     public String getNome() {
@@ -165,12 +165,12 @@ public class QuoteBean implements Serializable {
         this.profissao = profissao;
     }
 
-    public String getInteresse() {
-        return interesse;
+    public String getOption() {
+        return option;
     }
 
-    public void setInteresse(String interesse) {
-        this.interesse = interesse;
+    public void setOption(String option) {
+        this.option = option;
     }
 
 }

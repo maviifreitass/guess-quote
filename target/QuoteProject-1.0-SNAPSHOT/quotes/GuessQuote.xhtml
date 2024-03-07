@@ -52,10 +52,10 @@
                     <i class="fas fa-spinner fa-spin"></i> Carregando...
                 </div>
                 <p:panelGrid columns="2" style="width:100%">
-                    <p:selectOneListbox id="interesse" value="#{quoteBean.interesse}" required="true" style="width: 400px; font-weight: 600; font-size: 20px">
-                        <f:selectItems value="#{quoteBean.interesses}" 
-                                       var="interesse"
-                                       itemLabel="#{interesse}" itemValue="#{interesse}"/>
+                    <p:selectOneListbox id="option" value="#{quoteBean.option}" required="true" style="width: 400px; font-weight: 600; font-size: 20px">
+                        <f:selectItems value="#{quoteBean.options}" 
+                                       var="option"
+                                       itemLabel="#{option}" itemValue="#{option}"/>
                     </p:selectOneListbox>
                     <p:column>
                         <p:outputPanel rendered="#{quoteBean.getInfo}"> <!-- Isso utiliza a propriedade rendered para controlar a visibilidade do componente. -->
