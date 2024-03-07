@@ -20,7 +20,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.util.EntityUtils;
 import quote.entity.Binding;
-import quote.entity.FamousPeople;
 import static quote.entity.FamousPeople.getFamousPeople;
 import quote.entity.Name;
 import quote.entity.QuoteResponse;
